@@ -8,7 +8,7 @@ public class UserWriter
         return Console.ReadLine().Trim();
     }
     
-    public static void WriteResult(string processedString, Dictionary<char, int> charsCount)
+    public static void WriteResult(string processedString, Dictionary<char, int> charsCount, string maxSubstring)
     {
         Console.WriteLine("\nResult:");
         Console.WriteLine(processedString);
@@ -18,6 +18,8 @@ public class UserWriter
         {
             Console.WriteLine($"{symbol}: {count}");
         }
+        
+        Console.WriteLine($"The longest line starting and ending with a vowel: {maxSubstring}");
     }
     
     public static void WriteExceptionMessage(string message)

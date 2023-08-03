@@ -16,4 +16,28 @@ public static class StringExtends
 
         return incorrectChars;
     }
+    
+    public static Dictionary<char, int> CharCounter(this string str)
+    {
+        var counter = str
+            .GroupBy(x => x, (symbol, chars) => new {symbol, count = chars.Count()})
+            .ToDictionary(x => x.symbol, x => x.count);
+        return counter;
+    }
+    
+    public static string FindMaxSubstring(this string str, Regex substringRegex)
+    {
+        var matches = substringRegex.Matches(str);
+
+        var maxString = "";
+        foreach (var match in matches)
+        {
+            var m = match as Match;
+            if (m.Length > maxString.Length)
+                maxString = m.Value;
+        }
+        
+
+        return maxString;
+    }
 }

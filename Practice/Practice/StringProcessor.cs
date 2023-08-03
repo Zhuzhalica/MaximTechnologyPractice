@@ -1,4 +1,6 @@
-﻿namespace Practice;
+﻿using System.Text.RegularExpressions;
+
+namespace Practice;
 
 public class StringProcessor
 {
@@ -15,13 +17,5 @@ public class StringProcessor
             var strReverse = str.Reverse();
             return string.Join("", strReverse) + str;
         }
-    }
-
-    public static Dictionary<char, int> CharCounter(string str)
-    {
-        var counter = str
-            .GroupBy(x => x, (symbol, chars) => new {symbol, count = chars.Count()})
-            .ToDictionary(x => x.symbol, x => x.count);
-        return counter;
     }
 }

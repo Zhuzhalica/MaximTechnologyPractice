@@ -4,7 +4,8 @@ namespace Practice;
 
 public class Program
 {
-    private static Regex alphabet = new Regex(@"[a-z]");
+    private static readonly Regex alphabet = new Regex(@"[a-z]");
+    private static readonly Regex substringRegex = new Regex("[aeiouy].*[aeiouy]");
 
     public static void Main()
     {
@@ -19,8 +20,9 @@ public class Program
         }
 
         var processedString = StringProcessor.StringProcessing(str);
-        var charsCount = StringProcessor.CharCounter(processedString);
+        var charsCount = processedString.CharCounter();
+        var maxSubstring = processedString.FindMaxSubstring(substringRegex);
 
-        UserWriter.WriteResult(processedString, charsCount);
+        UserWriter.WriteResult(processedString, charsCount, maxSubstring);
     }
 }
