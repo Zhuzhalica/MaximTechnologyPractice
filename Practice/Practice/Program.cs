@@ -19,8 +19,8 @@ public class Program
         }
 
         var processedString = StringProcessor.StringProcessing(str);
-        
+        var charsCount = StringProcessor.CharCounter(processedString);
 
-        UserWriter.WriteResult(processedString);
+        UserWriter.WriteResult(processedString, charsCount);
     }
 }
