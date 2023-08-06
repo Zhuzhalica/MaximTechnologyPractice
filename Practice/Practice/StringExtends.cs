@@ -16,7 +16,7 @@ public static class StringExtends
 
         return incorrectChars;
     }
-    
+
     public static Dictionary<char, int> CharCounter(this string str)
     {
         var counter = str
@@ -24,7 +24,7 @@ public static class StringExtends
             .ToDictionary(x => x.symbol, x => x.count);
         return counter;
     }
-    
+
     public static string FindMaxSubstring(this string str, Regex substringRegex)
     {
         var matches = substringRegex.Matches(str);
@@ -36,8 +36,29 @@ public static class StringExtends
             if (m.Length > maxString.Length)
                 maxString = m.Value;
         }
-        
+
 
         return maxString;
+    }
+
+    public static string Sort(this string str, SortType sortType)
+    {
+        var chars = str.ToCharArray();
+
+        switch (sortType)
+        {
+            case SortType.Quicksort:
+            {
+                var sortedChars = chars.QuickSort(0, chars.Length-1);
+                return new string(sortedChars);
+            };
+            case SortType.TreeSort:
+            {
+                var sortedChars = chars.TreeSort();
+                return new string(sortedChars);
+            };
+        }
+
+        throw new ArgumentException("Uncorrect sort type");
     }
 }
