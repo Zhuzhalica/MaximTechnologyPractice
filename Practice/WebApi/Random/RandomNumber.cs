@@ -1,17 +1,23 @@
 ﻿using System.Text;
 using System.Text.Json;
 
-namespace Practice;
+namespace Practice.Random;
 
-public class RandomNumber
+public class RandomNumber : IRandomNumber
 {
-    public static int GetHttpRandomNumber(int minNumber, int maxNumber)
+    private readonly StringProcessorConfig config;
+
+    public RandomNumber(StringProcessorConfig config)
+    {
+        this.config = config;
+    }
+
+    public int GetHttpRandomNumber(int minNumber, int maxNumber)
     {
         var request = new HttpRequestMessage()
         {
             RequestUri =
-                new Uri(
-                    $"https://lucky-random.ru/modules/nrand/api.php?count=1&min={minNumber}&max={maxNumber}&unique=1"),
+                new Uri($"{config.RandomApi}/api.php?count=1&min={minNumber}&max={maxNumber}&unique=1)"),
             Method = HttpMethod.Get
         };
 
@@ -25,9 +31,9 @@ public class RandomNumber
         return GetNetRandomNumber(minNumber, maxNumber);
     }
 
-    public static int GetNetRandomNumber(int minNumber, int maxNumber)
+    public int GetNetRandomNumber(int minNumber, int maxNumber)
     {
-        var random = new Random();
+        var random = new System.Random();
         return random.Next(minNumber, maxNumber);
     }
 }

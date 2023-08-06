@@ -1,11 +1,21 @@
+using Practice;
+using Practice.Random;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
+var randomApi = builder.Configuration.GetValue<string>("RandomApi");
+var blackList = builder.Configuration.GetSection("Settings:BlackList").Get<string[]>();
+builder.Services.AddSingleton(new StringProcessorConfig() {RandomApi = randomApi, BlackList = blackList});
+
+builder.Services.AddSingleton<IRandomNumber, RandomNumber>();
+builder.Services.AddSingleton<StringProcessor>();
 
 var app = builder.Build();
 

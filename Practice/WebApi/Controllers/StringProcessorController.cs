@@ -8,10 +8,12 @@ namespace WebApi.Controllers;
 public class StringProcessorController : ControllerBase
 {
     private readonly ILogger<StringProcessorController> _logger;
+    private readonly StringProcessor _stringProcessor;
 
-    public StringProcessorController(ILogger<StringProcessorController> logger)
+    public StringProcessorController(ILogger<StringProcessorController> logger, StringProcessor stringProcessor)
     {
         _logger = logger;
+        _stringProcessor = stringProcessor;
     }
 
     [HttpGet(Name = "GetWeatherForecast")]
@@ -19,7 +21,7 @@ public class StringProcessorController : ControllerBase
     {
         try
         {
-            return StatusCode(200, StringProcessor.Run(inputString, sortType));
+            return StatusCode(200, _stringProcessor.Run(inputString, sortType));
         }
         catch (ArgumentException e)
         {

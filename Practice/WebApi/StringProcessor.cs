@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using Practice.Random;
 
 namespace Practice;
 
@@ -6,8 +7,16 @@ public class StringProcessor
 {
     private static readonly Regex Alphabet = new Regex(@"[a-z]");
     private static readonly Regex SubstringRegex = new Regex("[aeiouy].*[aeiouy]");
+    private  readonly IRandomNumber _random;
+    private readonly StringProcessorConfig _config;
 
-    public static string Run(string str, SortType sortType)
+    public StringProcessor(IRandomNumber randomNumber, StringProcessorConfig config)
+    {
+        _random = randomNumber;
+        _config = config;
+    }
+
+    public string Run(string str, SortType sortType)
     {
         CheckCorrectInputString(str);
         
@@ -16,19 +25,22 @@ public class StringProcessor
         var maxSubstring = processedString.FindMaxSubstring(SubstringRegex);
         var sortedProcessedString = processedString.Sort(sortType);
 
-        var number = RandomNumber.GetHttpRandomNumber(0, processedString.Length - 1);
+        var number = _random.GetHttpRandomNumber(0, processedString.Length - 1);
         var truncateLine = processedString.Remove(number, 1);
 
         return DataWriter.WriteResult(processedString, charsCount, maxSubstring, sortedProcessedString, truncateLine);
     }
 
-    private static void CheckCorrectInputString(string str)
+    private void CheckCorrectInputString(string str)
     {
         var incorrectChars = str.FindOutsideAlphabetChars(Alphabet);
         if (incorrectChars.Length != 0)
         {
             throw new ArgumentException($"The string contains invalid characters: {string.Join(", ", incorrectChars)}");
         }
+
+        if (_config.BlackList.Any(forbiddenWord => str == forbiddenWord))
+            throw new ArgumentException($"The word {str} is forbidden");
     }
 
     public static string StringProcessing(string str)
