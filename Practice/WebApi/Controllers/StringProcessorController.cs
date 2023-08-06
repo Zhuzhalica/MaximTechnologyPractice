@@ -15,15 +15,15 @@ public class StringProcessorController : ControllerBase
     }
 
     [HttpGet(Name = "GetWeatherForecast")]
-    public ObjectResult Get(string inputString, SortType sortType)
+    public ObjectResult GetProcessedString(string inputString, SortType sortType)
     {
         try
         {
-            return StatusCode(200, StringProcessor.Run(inputString));
+            return StatusCode(200, StringProcessor.Run(inputString, sortType));
         }
         catch (ArgumentException e)
         {
-            return StatusCode(400, $"Message: {e.Message}");
+            return StatusCode(400, $"{e.Message}");
         }
     }
 }

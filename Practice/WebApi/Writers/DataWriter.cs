@@ -1,9 +1,8 @@
 ﻿using System.Text;
-using Microsoft.Extensions.Primitives;
 
 namespace Practice;
 
-public class UserWriter
+public class DataWriter 
 {
     public static string WriteResult(string processedString, Dictionary<char, int> charsCount,
         string maxSubstring, string sortedString, string truncateString)
@@ -17,11 +16,6 @@ public class UserWriter
         sb.Append(WriteTruncateString(truncateString));
 
         return sb.ToString();
-    }
-
-    private static string WriteTruncateString(string truncateString)
-    {
-       return $"Truncate string: {truncateString}";
     }
 
     private static string WriteProcessedString(string processedString)
@@ -49,5 +43,10 @@ public class UserWriter
     private static string WriteSortedString(string sortedString)
     {
         return $"Sorted string: {sortedString}\n";
+    }
+    
+    private static string WriteTruncateString(string truncateString)
+    {
+        return $"Truncate string: {truncateString}\n";
     }
 }

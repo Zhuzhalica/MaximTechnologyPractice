@@ -4,30 +4,33 @@ namespace Practice;
 
 public class StringProcessor
 {
-    private static readonly Regex alphabet = new Regex(@"[a-z]");
-    private static readonly Regex substringRegex = new Regex("[aeiouy].*[aeiouy]");
+    private static readonly Regex Alphabet = new Regex(@"[a-z]");
+    private static readonly Regex SubstringRegex = new Regex("[aeiouy].*[aeiouy]");
 
-    public static string Run(string str)
+    public static string Run(string str, SortType sortType)
     {
-        var incorrectChars = str.FindOutsideAlphabetChars(alphabet);
-        if (incorrectChars.Length != 0)
-        {
-            throw new ArgumentException($"The string contains invalid characters: {string.Join(", ", incorrectChars)}");
-        }
-
-        var processedString = StringProcessor.StringProcessing(str);
+        CheckCorrectInputString(str);
+        
+        var processedString = StringProcessing(str);
         var charsCount = processedString.CharCounter();
-        var maxSubstring = processedString.FindMaxSubstring(substringRegex);
-
-        var sortType = SortType.Quicksort;
+        var maxSubstring = processedString.FindMaxSubstring(SubstringRegex);
         var sortedProcessedString = processedString.Sort(sortType);
 
         var number = RandomNumber.GetHttpRandomNumber(0, processedString.Length - 1);
         var truncateLine = processedString.Remove(number, 1);
 
-        return UserWriter.WriteResult(processedString, charsCount, maxSubstring, sortedProcessedString, truncateLine);
+        return DataWriter.WriteResult(processedString, charsCount, maxSubstring, sortedProcessedString, truncateLine);
     }
-    
+
+    private static void CheckCorrectInputString(string str)
+    {
+        var incorrectChars = str.FindOutsideAlphabetChars(Alphabet);
+        if (incorrectChars.Length != 0)
+        {
+            throw new ArgumentException($"The string contains invalid characters: {string.Join(", ", incorrectChars)}");
+        }
+    }
+
     public static string StringProcessing(string str)
     {
         if (str.Length % 2 == 0)
