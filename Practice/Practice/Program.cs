@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Net.Http.Json;
 using System.Text.RegularExpressions;
 
 namespace Practice;
@@ -11,7 +12,7 @@ public class Program
     public static void Main()
     {
         var str = UserWriter.AskString();
-        
+
         var incorrectChars = str.FindOutsideAlphabetChars(alphabet);
         if (incorrectChars.Length != 0)
         {
@@ -19,16 +20,19 @@ public class Program
                                              string.Join(", ", incorrectChars));
             return;
         }
-        
-        
+
+
         var processedString = StringProcessor.StringProcessing(str);
         var charsCount = processedString.CharCounter();
         var maxSubstring = processedString.FindMaxSubstring(substringRegex);
-        
+
         var sortType = GetSortType();
         var sortedProcessedString = processedString.Sort(sortType);
 
-        UserWriter.WriteResult(processedString, charsCount, maxSubstring, sortedProcessedString);
+        var number = RandomNumber.GetHttpRandomNumber(0, processedString.Length - 1);
+        var truncateLine = processedString.Remove(number, 1);
+
+        UserWriter.WriteResult(processedString, charsCount, maxSubstring, sortedProcessedString, truncateLine);
     }
 
     private static SortType GetSortType()

@@ -15,12 +15,18 @@ public class UserWriter
     }
     
     public static void WriteResult(string processedString, Dictionary<char, int> charsCount,
-        string maxSubstring, string sortedString)
+        string maxSubstring, string sortedString, string truncateString)
     {
         WriteProcessedString(processedString);
         WriteSymbolRepetitionsNumber(charsCount);
         WriteMaxVowelSubstring(maxSubstring);
         WriteSortedString(sortedString);
+        WriteTruncateString(truncateString);
+    }
+
+    private static void WriteTruncateString(string truncateString)
+    {
+        Console.WriteLine($"Truncate string: {truncateString}");
     }
 
     private static void WriteProcessedString(string processedString)
