@@ -18,7 +18,7 @@ public class StringProcessor
 
     public string Run(string str, SortType sortType)
     {
-        Thread.Sleep(10000);
+        // Thread.Sleep(10000);
         CheckCorrectInputString(str);
         
         var processedString = StringProcessing(str);
