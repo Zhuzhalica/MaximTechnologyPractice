@@ -6,7 +6,7 @@ namespace Practice;
 public class StringProcessor
 {
     private static readonly Regex Alphabet = new Regex(@"[a-z]");
-    private static readonly Regex SubstringRegex = new Regex("[aeiouy].*[aeiouy]");
+    private static readonly Regex SubstringRegex = new Regex("[aeiouy].*[aeiouy]|[aeiouy]");
     private  readonly IRandomNumber _random;
     private readonly StringProcessorConfig _config;
 
