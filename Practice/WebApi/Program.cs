@@ -10,11 +10,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-builder.WebHost.ConfigureKestrel(serverOptions =>
-{
-    serverOptions.Limits.MaxConcurrentConnections = 2;
-});
-
 
 var randomApi = builder.Configuration.GetValue<string>("RandomApi");
 var blackList = builder.Configuration.GetSection("Settings:BlackList").Get<string[]>();
