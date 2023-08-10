@@ -24,9 +24,19 @@ public class Program
         var processedString = StringProcessor.StringProcessing(str);
         var charsCount = processedString.CharCounter();
         var maxSubstring = processedString.FindMaxSubstring(substringRegex);
-        
-        var sortType = GetSortType();
+
+        SortType sortType;
+        try
+        {
+            sortType = GetSortType();
+        }
+        catch (ArgumentException e)
+        {
+            UserWriter.WriteExceptionMessage(e.Message);
+            return;
+        }
         var sortedProcessedString = processedString.Sort(sortType);
+
 
         UserWriter.WriteResult(processedString, charsCount, maxSubstring, sortedProcessedString);
     }
@@ -44,7 +54,7 @@ public class Program
         {
             1 => SortType.Quicksort,
             2 => SortType.TreeSort,
-            _ => SortType.Quicksort
+            _ => throw new ArgumentException("The sorting number is specified incorrectly")
         };
     }
 }

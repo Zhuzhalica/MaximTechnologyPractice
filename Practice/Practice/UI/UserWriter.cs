@@ -10,7 +10,7 @@ public class UserWriter
     
     public static string AskSortedType()
     {
-        Console.WriteLine("Choice sort type:\n1 - Quick Sort | 2 - Tree sort | Any other symbol - Quick Sort");
+        Console.WriteLine("Choice sort type:\n1 - Quick Sort | 2 - Tree sort");
         return Console.ReadLine().Trim();
     }
     
