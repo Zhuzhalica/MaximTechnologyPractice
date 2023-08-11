@@ -17,6 +17,19 @@ public class DataWriter
 
         return sb.ToString();
     }
+    
+    public static string WriteResult(ProcessedString processedString)
+    {
+        var sb = new StringBuilder();
+        
+        sb.Append(WriteProcessedString(processedString.processedString));
+        sb.Append(WriteSymbolRepetitionsNumber(processedString.charsCount));
+        sb.Append(WriteMaxVowelSubstring(processedString.maxSubstring));
+        sb.Append(WriteSortedString(processedString.sortedProcessedString));
+        sb.Append(WriteTruncateString(processedString.truncateLine));
+
+        return sb.ToString();
+    }
 
     private static string WriteProcessedString(string processedString)
     {

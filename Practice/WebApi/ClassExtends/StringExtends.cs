@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Text.RegularExpressions;
 
 namespace Practice;
 
@@ -6,7 +7,7 @@ public static class StringExtends
 {
     private static Regex defaultAlphabet = new Regex(@"[a-zA-Z0-9]\s");
 
-    public static char[] FindOutsideAlphabetChars(this string str, Regex? alphabet = null)
+    public static char[] FindOutsideAlphabetChars([NotNull]this string str, Regex? alphabet = null)
     {
         alphabet ??= defaultAlphabet;
 
@@ -17,7 +18,7 @@ public static class StringExtends
         return incorrectChars;
     }
 
-    public static Dictionary<char, int> CharCounter(this string str)
+    public static Dictionary<char, int> CharCounter([NotNull] this string str)
     {
         var counter = str
             .GroupBy(x => x, (symbol, chars) => new {symbol, count = chars.Count()})
@@ -25,7 +26,7 @@ public static class StringExtends
         return counter;
     }
 
-    public static string FindMaxSubstring(this string str, Regex substringRegex)
+    public static string FindMaxSubstring([NotNull] this string str, Regex substringRegex)
     {
         var matches = substringRegex.Matches(str);
 
@@ -41,8 +42,14 @@ public static class StringExtends
         return maxString;
     }
 
-    public static string Sort(this string str, SortType sortType)
+    public static string Sort([NotNull] this string str, SortType sortType = SortType.Quicksort)
     {
+        if (str == null)
+            throw new ArgumentNullException();
+        
+        if (str.Length == 0)
+            return str;
+        
         var chars = str.ToCharArray();
 
         switch (sortType)
@@ -57,8 +64,8 @@ public static class StringExtends
                 var sortedChars = chars.TreeSort();
                 return new string(sortedChars);
             };
+            default:
+                throw new ArgumentOutOfRangeException(nameof(sortType), sortType, null);
         }
-
-        throw new ArgumentException("Uncorrect sort type");
     }
 }

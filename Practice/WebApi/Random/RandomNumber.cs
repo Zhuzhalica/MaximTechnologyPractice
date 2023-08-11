@@ -28,7 +28,7 @@ public class RandomNumber : IRandomNumber
             return int.Parse(responseString!.Split(" ")[0]);
         }
 
-        return GetNetRandomNumber(minNumber, maxNumber);
+        return -1;
     }
 
     public int GetNetRandomNumber(int minNumber, int maxNumber)

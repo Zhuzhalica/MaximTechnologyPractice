@@ -32,7 +32,8 @@ public class StringProcessorController : ControllerBase
 
         try
         {
-            result = _stringProcessor.Run(inputString, sortType);
+            var processedString = _stringProcessor.Processing(inputString, sortType);
+            result = DataWriter.WriteResult(processedString);
             statusCode = 200;
         }
         catch (ArgumentException e)
